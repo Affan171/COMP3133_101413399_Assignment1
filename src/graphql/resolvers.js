@@ -5,7 +5,7 @@ const User = require("../models/user");
 const Employee = require("../models/employee");
 
 const generateToken = (user) => {
-  return jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+  return jwt.sign({ userId: user._id.toString() }, process.env.JWT_SECRET, {
     expiresIn: "1d",
   });
 };
@@ -38,7 +38,7 @@ module.exports = {
       const employees = await Employee.find({});
       
       return employees.map(employee => ({
-        eid: employee._id.toString(),  // ✅ Convert MongoDB _id to string and map it to eid
+        eid: employee._id.toString(),  // ✅ Convert MongoDB _id to string
         first_name: employee.first_name,
         last_name: employee.last_name,
         email: employee.email,
@@ -60,9 +60,8 @@ module.exports = {
       const employee = await Employee.findById(eid);
       if (!employee) throw new Error("Employee not found");
     
-      // ✅ Ensure _id is mapped to eid in GraphQL response
       return {
-        eid: employee._id.toString(),  // 🔥 Fix: Explicitly return eid
+        eid: employee._id.toString(),  // ✅ Fix: Explicitly return eid
         first_name: employee.first_name,
         last_name: employee.last_name,
         email: employee.email,
@@ -85,7 +84,22 @@ module.exports = {
       if (designation) query.designation = designation;
       if (department) query.department = department;
 
-      return await Employee.find(query);
+      const employees = await Employee.find(query);
+
+      return employees.map(employee => ({
+        eid: employee._id.toString(),  // ✅ Fix: Ensure _id is converted to eid
+        first_name: employee.first_name,
+        last_name: employee.last_name,
+        email: employee.email,
+        gender: employee.gender,
+        designation: employee.designation,
+        salary: employee.salary,
+        date_of_joining: employee.date_of_joining,
+        department: employee.department,
+        employee_photo: employee.employee_photo,
+        created_at: employee.created_at,
+        updated_at: employee.updated_at,
+      }));
     },
   },
 
@@ -161,9 +175,8 @@ module.exports = {
 
       await employee.save();
 
-      // Ensure _id is mapped to eid in GraphQL response
       return {
-        eid: employee._id.toString(),
+        eid: employee._id.toString(),  // ✅ Convert _id to eid
         first_name: employee.first_name,
         last_name: employee.last_name,
         email: employee.email,
@@ -203,7 +216,7 @@ module.exports = {
       await employee.save();
 
       return {
-        eid: employee._id.toString(),
+        eid: employee._id.toString(),  // ✅ Convert _id to eid
         first_name: employee.first_name,
         last_name: employee.last_name,
         email: employee.email,
