@@ -19,6 +19,7 @@
   "type": "commonjs",
   "description": "Employee Management System using Node.js, Express, GraphQL, MongoDB",
   "dependencies": {
+    "apollo-server-core": "^3.13.0",
     "apollo-server-express": "^3.13.0",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",

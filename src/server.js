@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const { ApolloServer } = require("apollo-server-express");
+const { ApolloServerPluginLandingPageGraphQLPlayground } = require("apollo-server-core");
 const jwt = require("jsonwebtoken");
 
 const connectDB = require("./config/database");
@@ -31,7 +32,9 @@ async function startApolloServer() {
       return { user };
     },
     introspection: true,  
-    playground: true,
+    plugins: [
+      ApolloServerPluginLandingPageGraphQLPlayground(), // ✅ Ensures GraphQL Playground UI appears
+    ],
   });
 
   await apolloServer.start();
