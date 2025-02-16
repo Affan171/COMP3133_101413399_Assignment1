@@ -1,24 +1,3 @@
-// const jwt = require('jsonwebtoken');
-// require('dotenv').config();
-
-// const authMiddleware = (req) => {
-//     const authHeader = req.headers.authorization;
-//     if (!authHeader) throw new Error("Authorization header missing");
-
-//     const token = authHeader.split(" ")[1];
-//     if (!token) throw new Error("Authentication token missing");
-
-//     try {
-//         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-//         return { userId: decoded.userId };
-//     } catch (error) {
-//         throw new Error("Invalid token");
-//     }
-// };
-
-// module.exports = authMiddleware;
-
-
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
