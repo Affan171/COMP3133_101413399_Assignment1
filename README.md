@@ -96,7 +96,7 @@ query {
 #### **Get Employee by ID (Auth Required)**
 ```graphql
 query {
-  getEmployeeById(eid: "65d03f8e85d7b01234567890") {
+  getEmployeeById(eid: "67b237192709b1aac69f77f8") {
     eid
     first_name
     last_name
@@ -128,7 +128,7 @@ query {
 #### **Update Employee (Auth Required)**
 ```graphql
 mutation {
-  updateEmployee(eid: "65d03f8e85d7b01234567890", input: {
+  updateEmployee(eid: "67b237192709b1aac69f77f8", input: {
     first_name: "Michael",
     last_name: "Williams",
     email: "michael.williams@example.com",
@@ -148,7 +148,7 @@ mutation {
 #### **Delete Employee (Auth Required)**
 ```graphql
 mutation {
-  deleteEmployee(eid: "65d03f8e85d7b01234567890") {
+  deleteEmployee(eid: "67b237192709b1aac69f77f8") {
     success
     message
   }
